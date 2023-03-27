@@ -40,7 +40,7 @@ public class Emissor {
                 if (algoritmo.equals("VIGENERE")) {
                     mensagemCifrada = CifraVigenere.cifrar(mensagem, chave);
                 } else if (algoritmo.equals("VERNAM")) {
-                    // mensagemCifrada = CifraVernam.cifrar(mensagem, chave);
+                    mensagemCifrada = CifraVernam.cifrar(mensagem, chave);
                 }
 
                 // Envio da mensagem cifrada
@@ -55,7 +55,7 @@ public class Emissor {
                 if (algoritmo.equals("VIGENERE")) {
                     respostaDecifrada = CifraVigenere.decifrar(resposta, chave);
                 } else if (algoritmo.equals("VERNAM")) {
-                    // respostaDecifrada = CifraVernam.decifrar(resposta, chave);
+                    respostaDecifrada = CifraVernam.decifrar(resposta, chave);
                 }
 
                 // Exibição da resposta decifrada

@@ -5,8 +5,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Receptor {
-    private static final String ALGORITMO = "VIGENERE"; // Define o algoritmo a ser utilizado
-
+    static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         try {
             ServerSocket serverSocket = new ServerSocket(12345);
@@ -15,6 +14,20 @@ public class Receptor {
             System.out.println("Aguardando conexão...");
             Socket socket = serverSocket.accept();
             System.out.println("Conexão estabelecida!");
+
+            String algoritmo = scanner.nextLine();
+            // Verifica se o algoritmo escolhido é válido
+            switch(algoritmo) {
+                case "VIGENERE":
+                    System.out.println("Algoritmo de Vigenère");
+                    break;
+                case "VERNAM":
+                    System.out.println("Algoritmo de Vernam");
+                    break;
+                default:
+                    System.out.println("Algoritmo inválido");
+                    return;
+            }
 
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
@@ -28,10 +41,10 @@ public class Receptor {
                 System.out.println("Mensagem cifrada recebida: " + mensagemCifrada);
                 // Decifração da mensagem recebida
                 String mensagemDecifrada = "";
-                if (ALGORITMO.equals("VIGENERE")) {
+                if (algoritmo.equals("VIGENERE")) {
                     mensagemDecifrada = CifraVigenere.decifrar(mensagemCifrada, chave);
-                } else if (ALGORITMO.equals("VERNAM")) {
-                    // implementação da cifra de Vernam
+                } else if (algoritmo.equals("VERNAM")) {
+                    mensagemDecifrada = CifraVernam.decifrar(mensagemCifrada, chave);
                 }
 
                 // Exibição da mensagem decifrada
@@ -44,9 +57,9 @@ public class Receptor {
 
                 // Cifra da resposta com o algoritmo escolhido
                 String respostaCifrada = "";
-                if (ALGORITMO.equals("VIGENERE")) {
+                if (algoritmo.equals("VIGENERE")) {
                     respostaCifrada = CifraVigenere.cifrar(resposta, chave);
-                } else if (ALGORITMO.equals("VERNAM")) {
+                } else if (algoritmo.equals("VERNAM")) {
                     // implementação da cifra de Vernam
                 }
 
